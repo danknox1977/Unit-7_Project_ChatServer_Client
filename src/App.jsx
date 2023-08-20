@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Footer from './components/footer/Footer';
 import Nav from './components/nav/Nav'
+import Logout from './components/auth/logout/Logout';
 
 function App() {
 
@@ -27,6 +28,9 @@ function App() {
   return (
     <div className="App">
      <Nav />
+     {
+      sessionToken !== '' ? 
+      <Logout setSessionToken={setSessionToken}/> : null}
      <Routes>
         <Route 
           path='/'
