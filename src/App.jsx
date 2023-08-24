@@ -5,6 +5,8 @@ import { Routes, Route } from 'react-router-dom';
 import Footer from './components/footer/Footer';
 import Nav from './components/nav/Nav'
 import Logout from './components/auth/logout/Logout';
+// import MessageIndex from './components/messages/MessageIndex'
+import RoomIndex from './components/room/RoomIndex';
 
 function App() {
 
@@ -35,6 +37,10 @@ function App() {
         <Route 
           path='/'
           element={<Auth updateToken={updateToken} />}
+        />
+         <Route 
+          path='/room'
+          element={<RoomIndex token={sessionToken} />}
         />
       </Routes>
      <Footer />

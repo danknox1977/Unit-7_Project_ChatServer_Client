@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
 import FullButton from '../../buttons/FullButton';
 import { useNavigate } from 'react-router-dom';
+import { baseURL } from '../../../environments'
 
 function Signup(props) {
 
@@ -27,7 +28,7 @@ function Signup(props) {
         })
 
 
-        const url = `http://127.0.0.1:4005/user/signup`;
+        const url = `${baseURL}/user/signup`;
 
         try {
 
@@ -46,7 +47,7 @@ function Signup(props) {
          
             if(data.message === "Success!") {
                 props.updateToken(data.token)
-                navigate('/rooms');
+                navigate('/room');
             } else {
                 alert(data.message)
             }
