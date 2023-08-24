@@ -27,6 +27,7 @@ function Auth(props) {
                     <Col md="6">
                         <Login
                             updateToken={props.updateToken}
+                            username={props.currentUsername}
                         />
                     </Col>
                 </Row>

@@ -4,6 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import FullButton from '../../buttons/FullButton';
 import { baseURL } from '../../../environments'
 
+let email = ''
+let password = ''
+let currentUsername = ''
+
 // Login component to provide token from matching email and password
 function Login({ updateToken }, {}) {
 
@@ -14,10 +18,8 @@ function Login({ updateToken }, {}) {
     const navigate = useNavigate();
 
     const getUser = async () => {
-        const email = emailRef.current.value;
-        const password = passwordRef.current.value;
-
-        const url = `${baseURL}/user/info`
+     
+        const url = `${baseURL}/user/info/${email}`
 
             try {
       const res = await fetch(url, {
@@ -30,7 +32,7 @@ function Login({ updateToken }, {}) {
 
       const data = await res.json();
 
-      console.log(data);
+      currentUsername = data.username;
 
     } catch (err) {
       console.error(err.message)
@@ -40,8 +42,8 @@ function Login({ updateToken }, {}) {
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const email = emailRef.current.value;
-        const password = passwordRef.current.value;
+        email = emailRef.current.value;
+        password = passwordRef.current.value;
 
   
         let bodyObj = JSON.stringify({
@@ -65,7 +67,7 @@ function Login({ updateToken }, {}) {
           
             if (data.message === 'Success!') {
                 updateToken(data.token)
-                getUser()
+                getUser(email)
                 navigate('/room')
             } else {
                 alert(data.message);

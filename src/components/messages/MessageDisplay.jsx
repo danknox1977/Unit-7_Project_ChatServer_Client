@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 export default function MessageDisplay(props) {
-  console.log(props.messages);
+  console.log('props.messages :', props.messages);
   let messagesToMap = []
   messagesToMap = props.messages
   console.log(messagesToMap)
@@ -62,12 +62,12 @@ export default function MessageDisplay(props) {
   {/* {
 
   
-  messagesToMap.map(message => {
+  props.messages.map(message => {
     return(
-        <tr key={props.messages[0]._id}>
-            <th scope="row">{props.messages[0].date}</th>
-            <td>{props.messages[0].text}</td>
-            <td>{props.messages[0].ownerId}</td>
+        <tr key={message._id}>
+            <th scope="row">{message.date}</th>
+            <td>{message.text}</td>
+            <td>{message.ownerId}</td>
             <td>
               <Button 
               color='warning'
