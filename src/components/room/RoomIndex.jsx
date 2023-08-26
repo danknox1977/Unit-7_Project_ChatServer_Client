@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from 'react'
-// import MovieCreate from './MovieCreate';
 import { Col, Container, Row } from 'reactstrap';
 import RoomTable from './RoomTable';
 import { baseURL} from '../../environments'
 import MessageIndex from '../messages/MessageIndex';
 import MessageAdd from '../messages/MessageAdd';
+import { useNavigate } from 'react-router-dom';
 
-console.log(baseURL);
+
 
 
 function RoomIndex(props) {
-    console.log(props)
+    let currentRoom_Id = '64ea30f18a162f7aa6449965'
+    console.log('props to RoomIndex: ', props)
     const [ messages, setMessages ] = useState([]);
+    const [tokenPresent, setTokenPresent] = useState(false);
+
+    const navigate = useNavigate();
+
 
 
     const fetchMessages = async () => {
-        const url = `${baseURL}/message/64c6d0c513dc26991bc0e242`;
+        console.log('hit')
+        const url = `${baseURL}/message/${currentRoom_Id}`;
   
         const requestOption = {
             method: 'GET',
@@ -40,14 +46,31 @@ function RoomIndex(props) {
             console.error(err.message)
         }
     }
+    // useEffect(() => {
+    //     console.log('Messages updated:', messages);
+    // }, [messages]);
+
   
     useEffect(() => {
-        if(props.token) {
-          console.log('Inside useEffect if')
+        if (props.token) {
+            setTokenPresent(true);
+        }
+    }, [props.token]);
+
+    console.log('RoomIndex tokenPresent: ', tokenPresent)
+
+   
+
+
+    useEffect(() => {
+        if(tokenPresent) {
+          console.log('Room Index Inside useEffect if')
             fetchMessages()
+            // getUser()
            
         }
-    }, [props.token])
+       
+    }, [tokenPresent])
 
     return (
         <>  
@@ -66,14 +89,15 @@ function RoomIndex(props) {
                <Col>
                         <MessageIndex
                             token={props.token}
-                            // fetchMessages={fetchMessages}
+                            fetchMessages={fetchMessages}
                             messages={messages}
                         />
                         <MessageAdd 
-                        //Add userName
-                        //Add roomId
-                        //Add ownerId
-                          token={props.token}
+                        // username={currentUsername}
+                        fetchMessages={fetchMessages}
+                        room_Id={currentRoom_Id}
+                        // owner_Id={}
+                        token={props.token}
                           />
                     </Col>
                 </Row>

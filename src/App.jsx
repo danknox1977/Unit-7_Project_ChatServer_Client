@@ -7,6 +7,7 @@ import Nav from './components/nav/Nav'
 import Logout from './components/auth/logout/Logout';
 // import MessageIndex from './components/messages/MessageIndex'
 import RoomIndex from './components/room/RoomIndex';
+import MessageUpdate from './components/messages/MessageUpdate';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
   // Token use ref set up
   useEffect(() => {
     if(localStorage.getItem('token')) {
+      console.log('inside useEffect App.jsx')
       setSessionToken(localStorage.getItem('token'))
     }
   },[])
@@ -41,6 +43,10 @@ function App() {
          <Route 
           path='/room'
           element={<RoomIndex token={sessionToken} />}
+        />
+         <Route 
+          path='/message/update/:id'
+          element={<MessageUpdate token={sessionToken} />}
         />
       </Routes>
      <Footer />

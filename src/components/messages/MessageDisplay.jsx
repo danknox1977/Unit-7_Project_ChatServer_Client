@@ -1,94 +1,96 @@
-import React from 'react'
-import { Table, Button } from 'reactstrap'
-import {baseURL} from '../../environments'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect } from "react";
+import { Table, Button } from "reactstrap";
+import { baseURL } from "../../environments";
+import { useNavigate } from "react-router-dom";
 
+export default function MessageDisplay({token, messages, fetchMessages}) {
 
+  console.log("MessageDisplay props.token :", token);
 
-export default function MessageDisplay(props) {
-  console.log('props.messages :', props.messages);
-  let messagesToMap = []
-  messagesToMap = props.messages
-  console.log(messagesToMap)
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    async function deleteMessage(id) {
-        const url = `${baseURL}/message/${id}`
+  async function deleteMessage(id) {
+    const url = `${baseURL}/message/${id}`;
 
-        let requestOption = {
-            headers: new Headers({
-                'Authorization': props.token
-              
-            }),
-            method: 'DELETE'
-        }
-        try {
-            let res = await fetch(url, requestOption);
-            let data = await res.json();
+    let requestOption = {
+      headers: new Headers({
+        // Authorization: props.token,
+        Authorization: token,
+      }),
+      method: "DELETE",
+    };
+    try {
+      let res = await fetch(url, requestOption);
+      let data = await res.json();
 
-           if(data){
-            props.fetchMessages()
-           }
+      if (data) {
+        fetchMessages();
+      }
 
-
-        } catch (err) {
-            console.err(err.message)
-        }
+    } catch (err) {
+      console.err(err.message);
     }
+  }
 
-    
+ 
+
+  useEffect(() => {
+    if (token) {
+      console.log("MessageDisplay Inside useEffect if");
+      fetchMessages();
+    }
+  }, [token])
+
+  console.log(messages)
+
   return (
-     // Date Text Owner
+    // Date Text Owner
     <>
-    <h2>Message</h2>
-    <Table hover borderless dark>
-  <thead>
-    <tr>
-      <th>
-        Date
-      </th>
-      <th>
-        Text
-      </th>
-      <th>
-        Owner
-      </th>
-      <th>
-        Edit / Delete
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-  {/* {
-
-  
-  props.messages.map(message => {
-    return(
-        <tr key={message._id}>
-            <th scope="row">{message.date}</th>
-            <td>{message.text}</td>
-            <td>{message.ownerId}</td>
-            <td>
-              <Button 
-              color='warning'
-              onClick={() => navigate(`/message/update/${props.messages[0]._id}`)}>Edit
-                
-                
-                </Button>
-                <Button
-            onClick={() => deleteMessage(props.messages[0]._id)}
-            color='danger'
-            >Delete</Button>
-            </td>
+      <h2>Messages</h2>
+      <Table hover borderless dark>
+   
+        <tbody>
+        {messages && messages.length > 0 ? (
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Text</th>
+              <th>Username</th>
+              <th>Edit / Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {messages.map((message) => (
+              <tr key={message._id}>
+                <td>{message.date}</td>
+                <td>{message.text}</td>
+                <td>{message.username}</td>
+                <td>
+                  <Button
+                    color="warning"
+                    onClick={() => navigate(`/message/update/${message._id}`)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    onClick={() => deleteMessage(message._id)}
+                    color="danger"
+                  >
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <tr>
+        <h4>No messages to display.</h4>
         </tr>
-    )
-        
-    
-
- })
-} */}
-  </tbody>
-</Table>
-</>
-  )
+      )}
+        </tbody>
+      </Table>
+    </>
+  );
 }

@@ -1,50 +1,27 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { FormGroup, Input, Form, Button } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import FullButton from '../../buttons/FullButton';
 import { baseURL } from '../../../environments'
 
-let email = ''
-let password = ''
-let currentUsername = ''
+
 
 // Login component to provide token from matching email and password
 function Login({ updateToken }, {}) {
 
+    let email = ''
+    let password = ''
+
     const emailRef = useRef();
     const passwordRef = useRef();
     
-
     const navigate = useNavigate();
-
-    const getUser = async () => {
-     
-        const url = `${baseURL}/user/info/${email}`
-
-            try {
-      const res = await fetch(url, {
-        method: 'GET',
-        headers: {
-            "Content-Type": 'application/json'
-        },
-      
-    });
-
-      const data = await res.json();
-
-      currentUsername = data.username;
-
-    } catch (err) {
-      console.error(err.message)
-    }
-
-  
-    }
+    const [ emailState, setEmailState ] = useState([]);
     const handleSubmit = async (e) => {
         e.preventDefault()
         email = emailRef.current.value;
         password = passwordRef.current.value;
-
+        setEmailState(email)
   
         let bodyObj = JSON.stringify({
             email, password
@@ -66,9 +43,10 @@ function Login({ updateToken }, {}) {
 
           
             if (data.message === 'Success!') {
+            
                 updateToken(data.token)
-                getUser(email)
                 navigate('/room')
+            
             } else {
                 alert(data.message);
             }

@@ -7,7 +7,7 @@ import { baseURL } from '../../../environments'
 function Signup(props) {
 
 
-    const userNameRef = useRef();
+    const usernameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
 
@@ -16,7 +16,7 @@ function Signup(props) {
     async function handleSubmit(e) {
         e.preventDefault();
        
-        const username = userNameRef.current.value;
+        const username = usernameRef.current.value;
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
       
@@ -63,14 +63,14 @@ function Signup(props) {
             <Form onSubmit={handleSubmit}>
                 <FormGroup floating>
                     <Input
-                        id='userNameSignup'
-                        innerRef={userNameRef}
+                        id='usernameSignup'
+                        innerRef={usernameRef}
                         placeholder='your username here'
-                        name='userName'
+                        name='username'
                         type='text'
 
                     />
-                    <Label for='userNameSignup'>Username</Label>
+                    <Label for='usernameSignup'>Username</Label>
                 </FormGroup>
                 <FormGroup>
                     <Label>email</Label>

@@ -3,28 +3,24 @@ import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import FullButton from '../buttons/FullButton';
 import { baseURL } from '../../environments';
 
+
+
 function MessageAdd(props) {
-    console.log(props)
-    const dateRef = useRef();
-    const ownerIdRef = useRef();
-    const roomIdRef = useRef();
+  
+
+    console.log(props.room_Id)
+
     const textRef = useRef();
-    const userNameRef = useRef();
-
-
+   
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const date = new Date
-        const ownerId = props.ownerId;
-        const roomId = props.roomId;
         const text = textRef.current.value;
-        const userName = props.userName;
 
         let body = JSON.stringify({
-            date, ownerId, roomId, text, userName
+          text
         })
 
-        let url = `${baseURL}/message/${props.roomId}`;
+        let url = `${baseURL}/message/${props.room_Id}`;
 
         let headers = new Headers();
         headers.append(`Content-Type`, `application/json`);
