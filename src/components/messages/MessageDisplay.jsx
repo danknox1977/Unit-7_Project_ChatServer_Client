@@ -11,6 +11,7 @@ export default function MessageDisplay({token, messages, fetchMessages, rooms, s
   const navigate = useNavigate();
 
   async function deleteMessage(id) {
+   
     const url = `${baseURL}/message/${id}`;
 
     let requestOption = {
@@ -29,18 +30,18 @@ export default function MessageDisplay({token, messages, fetchMessages, rooms, s
       }
 
     } catch (err) {
-      console.err(err.message);
+      console.error(err.message);
     }
   }
 
  
 
   useEffect(() => {
-    if (token) {
+    if (token || selectedRoom) {
       console.log("MessageDisplay Inside useEffect if");
       fetchMessages();
     }
-  }, [token])
+  }, [token || selectedRoom])
 
   console.log(messages)
 

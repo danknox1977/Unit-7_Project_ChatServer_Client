@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import MessageDisplay from "./MessageDisplay";
-import { baseURL } from "../../environments";
+// import { baseURL } from "../../environments";
 
 function MessageIndex(props) {
   console.log('props to MessageIndex: ', props);
 
   useEffect(() => {
-    if (props.token) {
+    if (props.token || props.selectedRoom) {
       console.log("MessageIndex Inside useEffect if");
       props.fetchMessages();
     }
-  }, [props.token])
+  }, [props.token || props.selectedRoom])
 
   console.log(props.messages.results);
   return (

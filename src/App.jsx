@@ -8,6 +8,7 @@ import Logout from './components/auth/logout/Logout';
 // import MessageIndex from './components/messages/MessageIndex'
 import RoomIndex from './components/room/RoomIndex';
 import MessageUpdate from './components/messages/MessageUpdate';
+import RoomUpdate from './components/room/RoomEdit';
 
 function App() {
 
@@ -48,7 +49,14 @@ function App() {
           path='/message/update/:id'
           element={<MessageUpdate token={sessionToken} />}
         />
+        <Route 
+                path='/room/update/:id'
+                element={<RoomUpdate token={sessionToken} />}
+              />
+
+        
       </Routes>
+      
      <Footer />
     </div>
   );

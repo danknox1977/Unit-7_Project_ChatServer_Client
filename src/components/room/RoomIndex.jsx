@@ -38,10 +38,10 @@ function RoomIndex(props) {
     }
 
     useEffect(() => {
-        if (props.token)
+      
         console.log('InsideRoomIndexUseEffectForFetchRooms')
         fetchRooms();
-    }, [props.token]);
+    });
 
    
 

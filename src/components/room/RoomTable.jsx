@@ -81,60 +81,60 @@ function RoomTable(props) {
         console.log(props.rooms);
 
 
-        // async function deleteRoom(id) {
-        //     const url = `${baseURL}/room/${id}`
-        //     // console.log(id);
-        //     // console.log(url);
+        async function deleteRoom(id) {
+            const url = `${baseURL}/room/${id}`
+            // console.log(id);
+            // console.log(url);
             
-        //     let requestOption = {
-        //         headers: new Headers({
-        //             'Authorization': props.token,
-        //         }),
-        //         method: 'DELETE'
-        //     }
+            let requestOption = {
+                headers: new Headers({
+                    'Authorization': props.token,
+                }),
+                method: 'DELETE'
+            }
 
-        //     try {
+            try {
             
-        //     } catch (err) {
-        //         console.error(err.message)
-        //     }
+            } catch (err) {
+                console.error(err.message)
+            }
             
-        //     let res = await fetch(url, requestOption);
-        //     let data = await res.json();
+            let res = await fetch(url, requestOption);
+            let data = await res.json();
     
-        //     // console.log(data);
-        //     if(data) {
-        //         props.fetchRooms();
-        //     }
-        // }
+            // console.log(data);
+            if(data) {
+                props.fetchRooms();
+            }
+        }
 
 
-        // async function editRoom(id) {
-        //     const url = `${baseURL}/room/${id}`
-        //     // console.log(id);
-        //     // console.log(url);
+        async function editRoom(id) {
+            const url = `${baseURL}/room/${id}`
+            // console.log(id);
+            // console.log(url);
             
-        //     let requestOption = {
-        //         headers: new Headers({
-        //             'Authorization': props.token,
-        //         }),
-        //         method: 'PATCH'
-        //     }
+            let requestOption = {
+                headers: new Headers({
+                    'Authorization': props.token,
+                }),
+                method: 'PATCH'
+            }
 
-        //     try {
+            try {
             
-        //     } catch (err) {
-        //         console.error(err.message)
-        //     }
+            } catch (err) {
+                console.error(err.message)
+            }
             
-        //     let res = await fetch(url, requestOption);
-        //     let data = await res.json();
+            let res = await fetch(url, requestOption);
+            let data = await res.json();
     
-        //     // console.log(data);
-        //     if(data) {
-        //         props.fetchRooms();
-        //     }
-        // }
+            // console.log(data);
+            if(data) {
+                props.fetchRooms();
+            }
+        }
 
 
         return (
@@ -170,14 +170,21 @@ function RoomTable(props) {
                                             <td>
                                             <Button
                                                     color='warning'
-                                                    // onClick={
-                                                    //     () => editRoom(props.selectedRoom._id)
+                                                    onClick={ () =>
+                                                        navigate(`/room/update/${room._id}`)}
+                                                    //     <RoomEdit
+                                                    //         token={props.token}
+                                                    //         fetchRooms={props.fetchRooms}
+                                                    //         room_Id={room._id}
+                                                    //     />
                                                     // }
+                                                    //     // () => 
+                                                    //     // editRoom(props.selectedRoom._id)
                                                 >Edit</Button>
                                                 <Button
-                                                    // onClick={
-                                                    //     () => deleteRoom(props.selectedRoom._id)
-                                                    // }
+                                                    onClick={
+                                                        () => deleteRoom(props.selectedRoom._id)
+                                                    }
                                                     color='danger'
                                                 >Delete</Button>
                                                 </td>
@@ -205,7 +212,7 @@ function RoomTable(props) {
                          <MessageAdd 
                          // username={currentUsername}
                          fetchMessages={fetchMessages}
-                         room_Id={props.rooms[0]}
+                         room_Id={props.selectedRoom}
                          // owner_Id={}
                          token={props.token}
                            />
