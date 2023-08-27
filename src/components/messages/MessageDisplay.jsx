@@ -3,9 +3,10 @@ import { Table, Button } from "reactstrap";
 import { baseURL } from "../../environments";
 import { useNavigate } from "react-router-dom";
 
-export default function MessageDisplay({token, messages, fetchMessages}) {
+export default function MessageDisplay({token, messages, fetchMessages, rooms, selectedRoom, setSelectedRoom}) {
 
-  console.log("MessageDisplay props.token :", token);
+  console.log("MessageDisplay token :", token);
+  console.log("MessageDisplay rooms :", rooms[0]._id);
 
   const navigate = useNavigate();
 

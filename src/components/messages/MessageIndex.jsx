@@ -19,6 +19,9 @@ function MessageIndex(props) {
         token={props.token}
         fetchMessages={props.fetchMessages}
         messages={props.messages.results}
+        rooms={props.rooms}
+        selectedRoom={props.selectedRoom}
+        setSelectedRoom={props.setSelectedRoom}
       />
     </>
   );
