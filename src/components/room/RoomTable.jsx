@@ -21,8 +21,11 @@ function RoomTable(props) {
 
 
     const fetchMessages = async () => {
+
+       
         console.log('hit')
-        const url = `${baseURL}/message/${props.selectedRoom[0]._id}`;
+    
+        const url = `${baseURL}/message/${props.selectedRoom._id}`;
   
         const requestOption = {
             method: 'GET',
@@ -46,6 +49,8 @@ function RoomTable(props) {
         } catch (err) {
             console.error(err.message)
         }
+      
+  
     }
     // useEffect(() => {
     //     console.log('Messages updated:', messages);
@@ -64,14 +69,15 @@ function RoomTable(props) {
 
 
     useEffect(() => {
-        if(tokenPresent) {
-          console.log('RoomTable Inside useEffect if tokenPresent')
+        if(props.selectedRoom) {
+
+          console.log(props.selectedRoom)
             fetchMessages()
             // getUser()
            
         }
        
-    }, [tokenPresent])
+    }, [props.selectedRoom])
         console.log(props.rooms);
 
 

@@ -4,19 +4,16 @@ import RoomTable from './RoomTable';
 import RoomCreate from './RoomCreate';
 import RoomEdit from './RoomEdit';
 import { baseURL} from '../../environments'
-
 import { useNavigate } from 'react-router-dom';
-
-
 
 
 function RoomIndex(props) {
 
     const [ rooms, setRooms ] = useState([]);
-    const [ selectedRoom, setSelectedRoom ] = useState(null);
-
+    const [ selectedRoom, setSelectedRoom ] = useState([]);
 
     const fetchRooms = async () => {
+
         const url = `${baseURL}/room`;
 
         const requestOption = {
@@ -33,8 +30,8 @@ function RoomIndex(props) {
 
             console.log(data);
             setRooms(data.getAllRooms)
-            setSelectedRoom(data.getAllRooms)
             console.log(rooms);
+
         } catch (err) {
             console.error(err.message)
         }
@@ -73,14 +70,14 @@ function RoomIndex(props) {
                         </Col>
                     </Row>
                 <br/>
-                    <Row>
+                    {/* <Row>
                         <Col>
                             <RoomEdit
                                 token={props.token}
                                 fetchRooms={fetchRooms}
                             />
                         </Col>
-                    </Row>
+                    </Row> */}
              
 
             </Container>
